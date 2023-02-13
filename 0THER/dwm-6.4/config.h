@@ -11,7 +11,7 @@ static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display 
 static const int showsystray        = 1;        /* 0 means no systray */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const unsigned int gappx     = 10;        /* gaps between windows */
+static const unsigned int gappx     = 8;        /* gaps between windows */
 static const char *fonts[]          = { "monospace:size=10" };
 static const char dmenufont[]       = "monospace:size=10";
 static const char col_gray1[]       = "#222222";
@@ -26,21 +26,23 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "", "", "", "4", "5", "6", "", "", "" };
+static const char *tags[] = { "", "", "", "", "5", "6", "", "", "" };
 
 static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      	instance    	title       tags mask		isfloating   monitor */
-	{ "copyq",  	NULL,		NULL,       0, 	    		1,         	-1 },
-	{ "Lutris",  	NULL,		NULL,       1 << 2, 	    	1,         	-1 },
-	{ "Firefox",  	NULL,		NULL,       1, 	    		0,         	-1 },
-	{ "Alacritty", 	NULL,		NULL,	    1 << 1,	    	0, 	 	-1 },
-	{ "Spotify",    NULL,		NULL,	    1 << 6,	    	0, 		-1 },
-	{ "Stremio",    NULL,		NULL,	    1 << 7,	    	0, 		-1 },
-	{ "discord",    NULL,		NULL,	    1 << 8,	    	0, 		-1 },
+	/* class      		instance    	title       tags mask		isfloating   monitor */
+	{ "copyq",  		NULL,		NULL,       0, 	    		1,         	-1 },
+	{ "Virt-manager",  	NULL,		NULL,       1 << 3,    		1,         	-1 },
+	{ "Rustdesk",  		NULL,		NULL,       1 << 3,    		1,         	-1 },
+	{ "Lutris",  		NULL,		NULL,       1 << 2, 	    	1,         	-1 },
+	{ "PCSX2",  		NULL,		NULL,       1 << 2, 	    	1,         	-1 },
+	{ "Firefox",  		NULL,		NULL,       1, 	    		0,         	-1 },
+	{ "Alacritty", 		NULL,		NULL,	    1 << 1,	    	0, 	 	-1 },
+	{ "Stremio",    	NULL,		NULL,	    1 << 7,	    	0, 		-1 },
+	{ "discord",    	NULL,		NULL,	    1 << 8,	    	0, 		-1 },
 };
 
 /* layout(s) */
@@ -70,15 +72,17 @@ static const Layout layouts[] = {
 /* commands */
 static const char *dmenucmd[] = { "dmenu_run", "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "alacritty", NULL };
-static const char *upvol[] = { "/usr/bin/wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", "5%+", NULL };
-static const char *downvol[] = { "/usr/bin/wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", "5%-", NULL };
-static const char *mutevol[] = { "/usr/bin/wpctl", "set-mute", "@DEFAULT_AUDIO_SINK@", "toggle", NULL };
+static const char *upvolcmd[] = { "/usr/bin/wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", "5%+", NULL };
+static const char *downvolcmd[] = { "/usr/bin/wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", "5%-", NULL };
+static const char *mutevolcmd[] = { "/usr/bin/wpctl", "set-mute", "@DEFAULT_AUDIO_SINK@", "toggle", NULL };
+static const char *playpausemediacmd[] = { "/usr/bin/playerctl", "play-pause" };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ 0,                       	XF86XK_AudioMute, spawn, {.v = mutevol } },
-	{ 0,         		  	XF86XK_AudioLowerVolume, spawn, {.v = downvol } },
-	{ 0,            		XF86XK_AudioRaiseVolume, spawn, {.v = upvol   } },
+	{ 0,                       	XF86XK_AudioMute, spawn, {.v = mutevolcmd } },
+	{ 0,         		  	XF86XK_AudioLowerVolume, spawn, {.v = downvolcmd } },
+	{ 0,            		XF86XK_AudioRaiseVolume, spawn, {.v = upvolcmd   } },
+	{ 0,            		XF86XK_AudioPlay, 	spawn, {.v = playpausemediacmd} },
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },

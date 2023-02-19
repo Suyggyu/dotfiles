@@ -104,3 +104,5 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 pfetch
+bindkey "^[[1;3C" forward-word
+bindkey "^[[1;3D" backward-word

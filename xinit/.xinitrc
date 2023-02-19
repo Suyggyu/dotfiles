@@ -4,11 +4,12 @@ picom &
 pipewire &
 pipewire-pulse &
 xinput set-prop 'SINOWEALTH Game Mouse' 'libinput Accel Speed' -1
-feh --bg-scale /home/alex/Pictures/wallpapers/ds93gmkv2pca1.jpg
+feh --bg-fill /home/alex/Pictures/wallpapers/background
 redshift -l 44.31:23.80 &
 firefox &
-while xsetroot -name "$(date +%d.%m.%Y\ %H:%M)"
+qbittorrent &
+while xsetroot -name "vol: $(wpctl get-volume @DEFAULT_SINK@ | cut -d ' ' -f 2) $(date +%d.%m.%Y\ %H:%M)"
 do
-	sleep 1
+	sleep 5
 done &
 exec dbus-run-session dwm

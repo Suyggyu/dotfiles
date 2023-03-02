@@ -1,10 +1,10 @@
-pkill -9 picom pipewire pipewire-pulse redshift firefox playerctld
+pkill -9 picom pipewire pipewire-pulse redshift firefox playerctld dunst
 playerctld &
 picom &
 pipewire &
 pipewire-pulse &
 xinput set-prop 'SINOWEALTH Game Mouse' 'libinput Accel Speed' -1
-feh --bg-fill /home/alex/Pictures/wallpapers/background
+~/.fehbg &
 redshift -l 44.31:23.80 &
 firefox &
 qbittorrent &
